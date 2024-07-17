@@ -1,20 +1,20 @@
-#!/usr/bin/env python3
 import sqlite3
 
-try:
-    sqliteConnection = sqlite3.connect('SQLite_Python.db')
-    cursor = sqliteConnection.cursor()
-    print("Database created and Successfully Connected to SQLite")
+def create_connection():
+    connection = sqlite3.connect("hotel_reservations.db")
+    return connection
 
-    sqlite_select_Query = "select sqlite_version();"
-    cursor.execute(sqlite_select_Query)
-    record = cursor.fetchall()
-    print("SQLite Database Version is: ", record)
-    cursor.close()
+def create_table():
+    connection = create_connection()
+    cursor = connection.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS reservations (
+                      id INTEGER PRIMARY KEY,
+                      name TEXT NOT NULL,
+                      room_type TEXT NOT NULL,
+                      check_in_date TEXT NOT NULL,
+                      check_out_date TEXT NOT NULL)''')
+    connection.commit()
+    connection.close()
 
-except sqlite3.Error as error:
-    print("Error while connecting to sqlite", error)
-finally:
-    if sqliteConnection:
-        sqliteConnection.close()
-        print("The SQLite connection is closed")
+if __name__ == "__main__":
+    create_table()
