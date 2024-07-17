@@ -7,7 +7,7 @@ class MainMenu(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Sistema de Reservas de Habitaciones")
-        self.geometry("300x200")
+        self.geometry("1280x720")
 
         self.label = tk.Label(self, text="Sistema de Reservas")
         self.label.pack(pady=10)
